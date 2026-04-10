@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>沉浸写作</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <canvas id="rain-canvas" aria-hidden="true"></canvas>
+  <canvas id="visual-canvas" aria-hidden="true"></canvas>
+  <div class="scene-glow" aria-hidden="true"></div>
+
+  <header class="mode-reveal-zone">
+    <nav class="mode-switcher" id="mode-switcher" aria-label="天气模式">
+      <button type="button" class="mode-button is-active" data-mode="rain">Rain</button>
+      <button type="button" class="mode-button" data-mode="snow">Snow</button>
+    </nav>
+  </header>
+
+  <main class="experience-shell">
+    <button
+      type="button"
+      class="vibe-handle"
+      id="vibe-handle"
+      aria-expanded="false"
+      aria-controls="vibe-mixer"
+      aria-label="打开氛围控制台"
+      title="打开氛围控制台"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <aside class="vibe-mixer" id="vibe-mixer">
+      <div class="mixer-header">
+        <p class="mixer-eyebrow">VibeMixer</p>
+        <button type="button" class="mixer-close" id="mixer-close" aria-label="关闭控制台">×</button>
+      </div>
+
+      <div class="mixer-block">
+        <label for="font-family">字体</label>
+        <select id="font-family" class="glass-field">
+          <option value="'STKaiti', 'KaiTi', 'LXGW WenKai', serif">手写体</option>
+          <option value="'Noto Serif SC', 'Songti SC', serif">衬线体</option>
+          <option value="'Microsoft YaHei', 'PingFang SC', sans-serif">无衬线</option>
+        </select>
+      </div>
+
+      <div class="mixer-block">
+        <label for="intensity-range">雨量 / 雪量 <span id="intensity-value">68%</span></label>
+        <input id="intensity-range" type="range" min="20" max="100" step="1" value="68">
+      </div>
+
+      <div class="mixer-block">
+        <label for="speed-range">速度 <span id="speed-value">36%</span></label>
+        <input id="speed-range" type="range" min="10" max="100" step="1" value="36">
+      </div>
+
+      <div class="mixer-block">
+        <label for="blur-range">模糊度 <span id="blur-value">18px</span></label>
+        <input id="blur-range" type="range" min="6" max="36" step="1" value="18">
+      </div>
+
+      <div class="mixer-block">
+        <label for="noise-range">白噪音 <span id="noise-value">0%</span></label>
+        <input id="noise-range" type="range" min="0" max="100" step="1" value="0">
+      </div>
+
+      <div class="mixer-block">
+        <label for="music-range">音乐融合度 <span id="music-value">0%</span></label>
+        <input id="music-range" type="range" min="0" max="100" step="1" value="0">
+      </div>
+
+      <div class="mixer-block inline-toggle-group">
+        <label class="toggle-row">
+          <span>字数显示</span>
+          <input id="stats-toggle" type="checkbox" checked>
+        </label>
+        <label class="toggle-row">
+          <span>保存状态</span>
+          <input id="save-status-toggle" type="checkbox" checked>
+        </label>
+        <label class="toggle-row">
+          <span>Timer 显示</span>
+          <input id="timer-visibility-toggle" type="checkbox" checked>
+        </label>
+        <label class="toggle-row">
+          <span>自动保存</span>
+          <input id="autosave-toggle" type="checkbox" checked>
+        </label>
+      </div>
+
+      <div class="mixer-actions">
+        <button type="button" class="action-button is-primary" id="save-button">立即保存</button>
+        <button type="button" class="action-button" id="export-button">导出 TXT</button>
+      </div>
+    </aside>
+
+    <section class="zen-timer passive-fade" id="zen-timer">
+      <button type="button" class="timer-toggle" id="timer-toggle" aria-expanded="false">Timer</button>
+      <div class="timer-panel" id="timer-panel">
+        <div class="timer-ring">
+          <svg viewBox="0 0 120 120" class="timer-svg" aria-hidden="true">
+            <circle class="timer-track" cx="60" cy="60" r="52"></circle>
+            <circle class="timer-progress" id="timer-progress" cx="60" cy="60" r="52"></circle>
+          </svg>
+          <div class="timer-readout" id="timer-readout">25:00</div>
+        </div>
+        <div class="timer-actions">
+          <button type="button" class="tiny-button" data-minutes="15">15</button>
+          <button type="button" class="tiny-button" data-minutes="25">25</button>
+          <button type="button" class="tiny-button" data-minutes="45">45</button>
+        </div>
+        <div class="timer-actions">
+          <button type="button" class="tiny-button" id="timer-start">开始</button>
+          <button type="button" class="tiny-button" id="timer-reset">重置</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="editor-wrap">
+      <div class="editor-deck" id="editor-deck">
+        <textarea id="editor" class="editor editor-single" spellcheck="false"></textarea>
+      </div>
+    </section>
+
+    <div class="bottom-meta passive-fade" id="bottom-meta">
+      <div class="meta-pill" id="save-status">本地暂存未开始</div>
+      <div class="meta-pill" id="word-count">0 字</div>
+    </div>
+  </main>
+
+  <script src="./script.js"></script>
+</body>
+</html>
